@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './settings.component.css'
 })
 export class SettingsComponent {
+  // TODO: Save user details upon submit
   name = 'Jane Doe';
   email = 'jane@example.com';
   notifications = true;
