@@ -1,26 +1,25 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Settings } from '../models/Settings';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SettingsService {
-  private _user: Settings;
-  constructor() {
-    this._user = {
-      name: 'Jane Doe',
-      email: 'jane@example.com',
-      notifications: true,
-      darkMode: false,
-    } as Settings;
-  }
+  private _user$ = new BehaviorSubject<Settings>({
+    name: 'Jane Doe',
+    email: 'jane@example.com',
+    notifications: true,
+    darkMode: false,
+  } as Settings);
+
+  user$ = this._user$.asObservable();
 
   getUser(): Settings {
-    return this._user;
+    return this._user$.getValue();
   }
 
   saveUser(name: string, email: string) {
-    this._user.name = name;
-    this._user.email = email;
+    this._user$.next({ ...this._user$.getValue(), name, email });
   }
 }

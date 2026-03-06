@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { SettingsService } from '../services/settings.service';
 import { AvatarService } from '../services/avatar.service';
 
@@ -9,13 +10,23 @@ import { AvatarService } from '../services/avatar.service';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
-export class NavComponent {
-  name: string;
+export class NavComponent implements OnInit, OnDestroy {
+  name: string = '';
+  private userSub!: Subscription;
+
   constructor(
     private settingsService: SettingsService,
     private avatarService: AvatarService
-  ) {
-    this.name = this.settingsService.getUser().name;
+  ) {}
+
+  ngOnInit() {
+    this.userSub = this.settingsService.user$.subscribe((user) => {
+      this.name = user.name;
+    });
+  }
+
+  ngOnDestroy() {
+    this.userSub.unsubscribe();
   }
 
   getAvatarColor() {

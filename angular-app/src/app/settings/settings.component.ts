@@ -9,12 +9,18 @@ import { SettingsService } from '../services/settings.service';
   styleUrl: './settings.component.css',
 })
 export class SettingsComponent {
-  name = 'Jane Doe';
-  email = 'jane@example.com';
-  notifications = true;
-  darkMode = false;
+  name: string;
+  email: string;
+  notifications: boolean;
+  darkMode: boolean;
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(private settingsService: SettingsService) {
+    const user = this.settingsService.getUser();
+    this.name = user.name;
+    this.email = user.email;
+    this.notifications = user.notifications;
+    this.darkMode = user.darkMode;
+  }
 
   onSubmit(): void {
     this.settingsService.saveUser(this.name, this.email);
