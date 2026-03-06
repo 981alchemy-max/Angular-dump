@@ -12,4 +12,13 @@ export class SettingsComponent {
   email = 'jane@example.com';
   notifications = true;
   darkMode = false;
+
+  onSubmit(): void {
+    console.log('Settings saved:', {
+      name: this.name,
+      email: this.email,
+      notifications: this.notifications,
+      darkMode: this.darkMode,
+    });
+  }
 }
