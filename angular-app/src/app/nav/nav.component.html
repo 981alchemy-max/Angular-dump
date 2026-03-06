@@ -82,6 +82,15 @@
     </li>
   </ul>
 
+  <!-- Dark mode toggle -->
+  <div class="nav-theme-toggle">
+    <span class="nav-theme-label">Dark Mode</span>
+    <label class="toggle">
+      <input type="checkbox" [checked]="darkMode" (change)="toggleDarkTheme()" />
+      <span class="slider"></span>
+    </label>
+  </div>
+
   <!-- Bottom user area -->
   <div class="nav-footer">
     <div class="avatar" [style.background-color]="getAvatarColor()">{{ getInitials() }}</div>

@@ -13,13 +13,18 @@ export class SettingsService {
     darkMode: false,
   } as Settings);
 
-  user$ = this._user$.asObservable();
+  settings$ = this._user$.asObservable();
 
-  getUser(): Settings {
+  getSettings(): Settings {
     return this._user$.getValue();
   }
 
   saveUser(name: string, email: string) {
     this._user$.next({ ...this._user$.getValue(), name, email });
+  }
+
+  toggleDarkTheme() {
+    const current = this._user$.getValue();
+    this._user$.next({ ...current, darkMode: !current.darkMode });
   }
 }

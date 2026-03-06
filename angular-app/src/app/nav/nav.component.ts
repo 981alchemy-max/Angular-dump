@@ -12,7 +12,8 @@ import { AvatarService } from '../services/avatar.service';
 })
 export class NavComponent implements OnInit, OnDestroy {
   name: string = '';
-  private userSub!: Subscription;
+  darkMode: boolean = false;
+  private settingsSub!: Subscription;
 
   constructor(
     private settingsService: SettingsService,
@@ -20,13 +21,18 @@ export class NavComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.userSub = this.settingsService.user$.subscribe((user) => {
-      this.name = user.name;
+    this.settingsSub = this.settingsService.settings$.subscribe((settings) => {
+      this.name = settings.name;
+      this.darkMode = settings.darkMode;
     });
   }
 
+  toggleDarkTheme(): void {
+    this.settingsService.toggleDarkTheme();
+  }
+
   ngOnDestroy() {
-    this.userSub.unsubscribe();
+    this.settingsSub.unsubscribe();
   }
 
   getAvatarColor() {
