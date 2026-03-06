@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { SettingsService } from '../services/settings.service';
 
 @Component({
   selector: 'app-settings',
   imports: [FormsModule],
   templateUrl: './settings.component.html',
-  styleUrl: './settings.component.css'
+  styleUrl: './settings.component.css',
 })
 export class SettingsComponent {
   name = 'Jane Doe';
@@ -13,12 +14,9 @@ export class SettingsComponent {
   notifications = true;
   darkMode = false;
 
+  constructor(private settingsService: SettingsService) {}
+
   onSubmit(): void {
-    console.log('Settings saved:', {
-      name: this.name,
-      email: this.email,
-      notifications: this.notifications,
-      darkMode: this.darkMode,
-    });
+    this.settingsService.saveUser(this.name, this.email);
   }
 }
