@@ -84,7 +84,7 @@
 
   <!-- Bottom user area -->
   <div class="nav-footer">
-    <div class="avatar">JD</div>
+    <div class="avatar" [style.background-color]="getAvatarColor()">{{ getInitials() }}</div>
     <div class="user-info">
       <span class="user-name">{{ name }}</span>
       <span class="user-role">Admin</span>
