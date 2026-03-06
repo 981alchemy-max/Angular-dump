@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SettingsService } from '../services/settings.service';
+import { AvatarService } from '../services/avatar.service';
 
 @Component({
   selector: 'app-nav',
@@ -9,9 +10,19 @@ import { SettingsService } from '../services/settings.service';
   styleUrl: './nav.component.css',
 })
 export class NavComponent {
-  constructor(private settingsService: SettingsService) {}
+  name: string;
+  constructor(
+    private settingsService: SettingsService,
+    private avatarService: AvatarService
+  ) {
+    this.name = this.settingsService.getUser().name;
+  }
 
-  getName() {
-    return this.settingsService.getUser().name;
+  getAvatarColor() {
+    return this.avatarService.getAvatarColor(this.name);
+  }
+
+  getInitials() {
+    return this.avatarService.getInitials(this.name);
   }
 }
